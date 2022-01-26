@@ -11,3 +11,4 @@ console.log("HI");
         //  If opponent color
             //  Check for 2 in row
                 //  If 3rd in row is same color, capture
+//Commity
