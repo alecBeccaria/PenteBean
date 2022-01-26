@@ -1,4 +1,3 @@
-let document = Document;
 console.log("HI");
 let gameBoard = [];
 for (let i = 0; i < 19; i++) {
@@ -8,6 +7,27 @@ for (let i = 0; i < 19; i++) {
 console.log(gameBoard);
 gameBoard[2][3] = "test";
 console.log(gameBoard);
+
+var tableDiv = document.getElementById("tableId");
+var table = document.createElement('TABLE');
+var tableBody = document.createElement('TBODY');
+
+table.border = "1";
+table.appendChild(tableBody);
+
+for(let a = 0; a < gameBoard.length; a++){
+    var tr = document.createElement('TR');
+    for(let b = 0; b < gameBoard[a].length; b++){
+        var td = document.createElement('TD');
+        td.appendChild(document.createTextNode(gameBoard[a][b]));
+        tr.appendChild(td);
+    }
+    tableBody.appendChild(tr);
+}
+tableDiv.appendChild(table);
+
+
+
 //  Origin Piece is placed
 
 //  Check if Piece occupies space next to it
