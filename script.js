@@ -1,5 +1,13 @@
+let document = Document;
 console.log("HI");
-
+let gameBoard = [];
+for (let i = 0; i < 19; i++) {
+    let row = Array(19).fill("1");
+    gameBoard.push(row);
+}
+console.log(gameBoard);
+gameBoard[2][3] = "test";
+console.log(gameBoard);
 //  Origin Piece is placed
 
 //  Check if Piece occupies space next to it
