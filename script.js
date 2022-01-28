@@ -1,3 +1,7 @@
+var imageSrc = "placeholder.jpg";
+
+
+
 console.log("HI");
 let gameBoard = [];
 for (let i = 0; i < 19; i++) {
@@ -14,7 +18,10 @@ var tableBody = document.createElement('TBODY');
 
 table.border = "1";
 table.appendChild(tableBody);
+table.id = "gameBoard";
+table.class = "gameBoardCss";
 
+//
 for(let a = 0; a < gameBoard.length; a++){
     var tr = document.createElement('TR');
     for(let b = 0; b < gameBoard[a].length; b++){
@@ -34,7 +41,16 @@ for(let a = 0; a < gameBoard.length; a++){
 tableDiv.appendChild(table);
 
 
+var allCells = document.getElementsByClassName("tableCells");
+
+console.log(allCells)
+
 function getVal(cell){
+    cell.innerHTML = "";
+    var img = document.createElement("IMG")
+    img.src = imageSrc;
+    cell.appendChild(img)
+
     alert(cell.innerHTML);
 }
 
