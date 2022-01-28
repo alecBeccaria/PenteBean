@@ -52,9 +52,13 @@ function getVal(cell){
     cell.appendChild(img)
 
     alert(cell.innerHTML);
+    let words = cell.id.split("/");
+    let row = words[1];
+    let column = words[2];
+    console.log(`Row: ${row} Column: ${column}`)
 }
 
-
+// Attach event handler to button
 //  Origin Piece is placed
 
 //  Check if Piece occupies space next to it
