@@ -56,6 +56,7 @@ function getVal(cell){
     let row = words[1];
     let column = words[2];
     console.log(`Row: ${row} Column: ${column}`)
+    console.log("Current value of cell: " + gameBoard[row][column])
 }
 
 // Attach event handler to button
