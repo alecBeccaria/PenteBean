@@ -20,12 +20,21 @@ for(let a = 0; a < gameBoard.length; a++){
     for(let b = 0; b < gameBoard[a].length; b++){
         var td = document.createElement('TD');
         td.appendChild(document.createTextNode(gameBoard[a][b]));
+        //Split on forwardSlashes for getting the ids
+        td.id = "tableCell/" + a + "/" + b;
+        td.onclick = function() {
+            getVal(this)
+        }
         tr.appendChild(td);
     }
     tableBody.appendChild(tr);
 }
 tableDiv.appendChild(table);
 
+
+function getVal(cell){
+    alert(cell.innerHTML);
+}
 
 
 //  Origin Piece is placed
