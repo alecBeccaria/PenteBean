@@ -22,6 +22,7 @@ for(let a = 0; a < gameBoard.length; a++){
         td.appendChild(document.createTextNode(gameBoard[a][b]));
         //Split on forwardSlashes for getting the ids
         td.id = "tableCell/" + a + "/" + b;
+        td.className = "tableCells";
 
         td.onclick = function() {
             getVal(this)
