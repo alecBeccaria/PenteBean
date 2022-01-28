@@ -22,6 +22,7 @@ for(let a = 0; a < gameBoard.length; a++){
         td.appendChild(document.createTextNode(gameBoard[a][b]));
         //Split on forwardSlashes for getting the ids
         td.id = "tableCell/" + a + "/" + b;
+
         td.onclick = function() {
             getVal(this)
         }
@@ -33,10 +34,13 @@ tableDiv.appendChild(table);
 
 
 function getVal(cell){
-    alert(cell.innerHTML);
+    let words = cell.id.split("/");
+    let row = words[1];
+    let column = words[2];
+    console.log(`Row: ${row} Column: ${column}`)
 }
 
-
+// Attach event handler to button
 //  Origin Piece is placed
 
 //  Check if Piece occupies space next to it
