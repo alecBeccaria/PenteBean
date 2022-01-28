@@ -1,4 +1,6 @@
 var imageSrc = "placeholder.jpg";
+var clickedRow;
+var clickedColumn;
 
 
 
@@ -53,8 +55,8 @@ function getVal(cell){
 
     alert(cell.innerHTML);
     let words = cell.id.split("/");
-    let row = words[1];
-    let column = words[2];
+    clickedRow = words[1];
+    clickedColumn = words[2];
     console.log(`Row: ${row} Column: ${column}`)
 }
 
