@@ -6,15 +6,8 @@
 html{
     background-color: var(--backgroundColor);
 }
-td{
-    min-width: 10px;
-    min-height: 25px;
-    max-width: 10px;
-    max-height: 25px;
-}
-
-table{
-    background-image: var(--backgroundImage) ;
+table {
+    background-color: #dfae83;
     min-height: 50%;
     min-width: 50%;
     max-height: 50%;
@@ -25,7 +18,10 @@ table{
     transform: translate(-50%, -50%);
     margin: 0;
     padding: 0;
-    border: 0;
+    border-collapse:collapse;
+    border-style: solid;
+    border-color: #dfae83;
+    border-width: 30px;
     outline: 0;
     font-size: 100%;
     background: transparent;
@@ -35,14 +31,19 @@ table{
     align-self: auto;
 }
 td{
+    border: 1px solid #697689;
+    background-color: #f0d1a3;
+    width: 25px;
+    height: 25px;
     margin: 0;
     padding: 0;
-    border: 0;
     outline: 0;
     font-size: 100%;
-    background: transparent;
     text-align: center;
     align-self: center;
+}
+.starting {
+    background-color: #ecb298;
 }
 td:hover{
     background-color: var(--hoverColor);
