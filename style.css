@@ -16,6 +16,8 @@ table {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    height: 60%;
+    width: 45%;
     margin: 0;
     padding: 0;
     border-collapse:collapse;
@@ -23,8 +25,11 @@ table {
     border-color: #dfae83;
     border-width: 30px;
     outline: 0;
-    font-size: 100%;
     background: transparent;
+    background-image: var(--backgroundImage) ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 .title{
     text-align: center;
@@ -47,4 +52,8 @@ td{
 }
 td:hover{
     background-color: var(--hoverColor);
+}
+img{
+    width: 20px;
+    height: 20px;
 }
