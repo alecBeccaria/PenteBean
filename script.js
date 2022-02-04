@@ -60,7 +60,6 @@ var allCells = document.getElementsByClassName("tableCells");
 console.log(allCells)
 
 function getVal(cell){
-    cell.innerHTML = "";
     let words = cell.id.split("/");
     clickedRow = words[1];
     clickedColumn = words[2];
