@@ -60,7 +60,6 @@ var allCells = document.getElementsByClassName("tableCells");
 console.log(allCells)
 
 function getVal(cell) {
-function getVal(cell){
     let words = cell.id.split("/");
     clickedRow = words[1];
     clickedColumn = words[2];
@@ -78,7 +77,6 @@ function getVal(cell){
     } else {
         alert("Tile is taken");
     }
-    isFirsPlayerTurn = !isFirsPlayerTurn;
 
 }
 
@@ -104,12 +102,13 @@ function placePiece(row, col, player, cell) {
         checkCaptureUp(row, col, player);
         checkCaptureLeft(row, col, player);
 
+        checkCaptureTopLeft(row, col, player);
+        checkCaptureTopRight(row, col, player);
+        checkCaptureBottomLeft(row, col, player);
+        checkCaptureBottomRight(row, col, player);
+
         checkFiveInRow(row, col, player);
         checkFiveInColumn(row, col, player);
-
-    } else {
-        alert("Tile is taken");
-    }
 }
 
 function checkFiveInRow(row, col, player) {
@@ -158,12 +157,7 @@ function checkFiveInColumn(row, col, player) {
         } else {
             break;
         }
-    }
-        checkCaptureTopLeft(row, col, player);
-        checkCaptureTopRight(row, col, player);
-        checkCaptureBottomLeft(row, col, player);
-        checkCaptureBottomRight(row, col, player);
-    
+    }    
 
     for (var i = 1; i < 5; i++) {
         //  Add to count for matching piece in a row
