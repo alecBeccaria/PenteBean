@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the Game</title>
+    <link rel="stylesheet" href="home.css"></link>
+</head>
+<body>
+    <div class="title"> 
+        Play a game of Pente!
+    </div>
+    <form onsubmit="onSubmit(event)">
+        <div class="menu">
+            <div class="playerNameMenu">
+                <div class="playerNameBox">
+                    <label class="playerNameLabel" for="player1">Player 1 Username: </label>
+                    <input class="playerNameEntry" type="text" name="player1" id="player1">
+                </div>
+                <div class="playerNameBox">
+                    <label class="playerNameLabel" for="player2">Player 2 Username: </label>
+                    <input class="playerNameEntry" type="text" name="player2" id="player2">
+                </div>
+            </div>
+            <input class="button" type="submit" value="Play Game!">
+        </div>
+    </form>
+
+    <script src="home.js"></script>
+</body>
+</html>
