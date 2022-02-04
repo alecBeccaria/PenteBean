@@ -1,0 +1,65 @@
+:root{
+    --borderColor: #dfae83;
+    --backgroundColor: #795548;
+    --bgHover: hsl(81, 65%, 65%);
+    --buttonBackground: #f0daac;
+}
+html{
+    background-color: var(--backgroundColor);
+}
+.title{
+    align-self: center;
+    text-align: center;
+    font-size: 50px;
+}
+.menu{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+
+}
+.button{
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+
+    border: 3px solid var(--borderColor);
+    max-width: 30%;
+    font-size: larger;
+    text-align: center;
+    align-self: center;
+    background-color: var(--buttonBackground);
+}
+
+.button:hover{
+    background-color: var(--bgHover);
+}
+.playerNameMenu{
+    display:flex;
+    flex-direction: row;
+}
+.playerNameBox{
+    display: flex;
+    flex-direction: column;
+    padding-right: 100px;
+    padding-left: 100px;
+    align-self: center;
+}
+.playerNameLabel{
+    flex: 1;
+}
+.playerNameEntry{
+    flex: 2;
+    color: inherit;
+    border: var(--borderColor) solid;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+}

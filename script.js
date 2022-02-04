@@ -2,7 +2,7 @@ var imageSrc1 = "Black_sm.png";
 var imageSrc2 = "White_sm.png"
 var clickedRow;
 var clickedColumn;
-var isFirsPlayerTurn = true;
+var isFirstPlayerTurn = true;
 
 var playerOneCaptureCount;
 var playerTwoCaptureCount;
@@ -60,16 +60,23 @@ var allCells = document.getElementsByClassName("tableCells");
 console.log(allCells)
 
 function getVal(cell) {
+function getVal(cell){
     let words = cell.id.split("/");
     clickedRow = words[1];
     clickedColumn = words[2];
-    if (isFirsPlayerTurn) {
-        console.log(`Row: ${clickedRow} Column: ${clickedColumn}`)
-        placePiece(clickedRow, clickedColumn, "player1", cell);
-    }
-    else {
-        console.log(`Row: ${clickedRow} Column: ${clickedColumn}`)
-        placePiece(clickedRow, clickedColumn, "player2", cell);
+    if (gameBoard[clickedRow][clickedColumn] == undefined) {
+        if (isFirstPlayerTurn) {
+            console.log(`Row: ${clickedRow} Column: ${clickedColumn}`)
+            placePiece(clickedRow, clickedColumn, "player1", cell);
+            isFirstPlayerTurn = !isFirstPlayerTurn;
+        }
+        else {
+            console.log(`Row: ${clickedRow} Column: ${clickedColumn}`)
+            placePiece(clickedRow, clickedColumn, "player2", cell);
+            isFirstPlayerTurn = !isFirstPlayerTurn;
+        }
+    } else {
+        alert("Tile is taken");
     }
     isFirsPlayerTurn = !isFirsPlayerTurn;
 
@@ -81,7 +88,7 @@ function getVal(cell) {
 //  Check if Piece occupies space next to it
 function placePiece(row, col, player, cell) {
     console.log(gameBoard)
-    if (gameBoard[row][col] == undefined) {
+    
         if (player == "player1") {
             var img = document.createElement("IMG")
             img.src = "./assets/White_sm.png";
@@ -152,6 +159,11 @@ function checkFiveInColumn(row, col, player) {
             break;
         }
     }
+        checkCaptureTopLeft(row, col, player);
+        checkCaptureTopRight(row, col, player);
+        checkCaptureBottomLeft(row, col, player);
+        checkCaptureBottomRight(row, col, player);
+    
 
     for (var i = 1; i < 5; i++) {
         //  Add to count for matching piece in a row
@@ -202,9 +214,11 @@ function checkCaptureRight(row, col, player) {
                     secondTile = null;
                     var targetCellId = "tableCell/" + row + "/" + (parseInt(col) + 1)
                     targetCell = document.getElementById(targetCellId)
+                    gameBoard[parseInt(row)][(parseInt(col) + 1)] = undefined;
                     targetCell.removeChild(targetCell.childNodes[0]);
                     var targetCellId = "tableCell/" + row + "/" + (parseInt(col) + 2)
                     targetCell = document.getElementById(targetCellId)
+                    gameBoard[parseInt(row)][(parseInt(col) + 2)] = undefined;
                     targetCell.removeChild(targetCell.childNodes[0]);
                 }
             }
@@ -216,31 +230,32 @@ function checkCaptureDown(row, col, player) {
     if ((parseInt(row) + 3 < gameBoard.length)) {
         //  Set the first tile to check
         var firstTile = gameBoard[parseInt(row) + 1][col];
-        console.log(firstTile)
-        console.log(gameBoard)
+
         //  If first tile to check exists, and is enemy player
         if (firstTile != undefined && (firstTile != player)) {
-            console.log("testdown")
+
             //  Set the second tile to check
             var secondTile = gameBoard[parseInt(row) + 2][col];
 
             //  If second tile exists and is an enemy player
             if (secondTile != undefined && (secondTile != player)) {
-                console.log("testdown")
+
                 //  Set third thile to check
                 var thirdTile = gameBoard[parseInt(row) + 3][col]
 
                 //  If third tile is owned by player making the move
                 if (thirdTile == player) {
-                    console.log("testdown")
+                    
                     //  Capture pieces, clear table and array
                     firstTile = null;
                     secondTile = null;
                     var targetCellId = "tableCell/" + (parseInt(row) + 1) + "/" + col
                     targetCell = document.getElementById(targetCellId)
+                    gameBoard[parseInt(row) + 1][parseInt(col)] = undefined;
                     targetCell.removeChild(targetCell.childNodes[0]);
                     var targetCellId = "tableCell/" + (parseInt(row) + 2) + "/" + col
                     targetCell = document.getElementById(targetCellId)
+                    gameBoard[(parseInt(row) + 2)][parseInt(col)] = undefined;
                     targetCell.removeChild(targetCell.childNodes[0]);
                 }
             }
@@ -273,9 +288,11 @@ function checkCaptureUp(row, col, player) {
                     secondTile = null;
                     var targetCellId = "tableCell/" + (parseInt(row) - 1) + "/" + col
                     targetCell = document.getElementById(targetCellId)
+                    gameBoard[(parseInt(row) - 1)][parseInt(col)] = undefined;
                     targetCell.removeChild(targetCell.childNodes[0]);
                     var targetCellId = "tableCell/" + (parseInt(row) - 2) + "/" + col
                     targetCell = document.getElementById(targetCellId)
+                    gameBoard[(parseInt(row) - 2)][parseInt(col)] = undefined;
                     targetCell.removeChild(targetCell.childNodes[0]);
                 }
             }
@@ -308,13 +325,155 @@ function checkCaptureLeft(row, col, player) {
                     secondTile = null;
                     var targetCellId = "tableCell/" + row + "/" + (parseInt(col) - 1)
                     targetCell = document.getElementById(targetCellId)
+                    gameBoard[parseInt(row)][(parseInt(col) - 1)] = undefined;
                     targetCell.removeChild(targetCell.childNodes[0]);
                     var targetCellId = "tableCell/" + row + "/" + (parseInt(col) - 2)
                     targetCell = document.getElementById(targetCellId)
+                    gameBoard[parseInt(row)][(parseInt(col) - 2)] = undefined;
                     targetCell.removeChild(targetCell.childNodes[0]);
                 }
             }
         }
     }
 }
+function checkCaptureTopLeft(row, col, player) {
+    if (!(parseInt(col) - 3 < 0) && !(parseInt(row) - 3 < 0)) {
+        //  Set the first tile to check
+        var firstTile = gameBoard[parseInt(row) - 1][parseInt(col) - 1];
+
+        //  If first tile to check exists, and is enemy player
+        if (firstTile != undefined && (firstTile != player)) {
+
+            //  Set the second tile to check
+            var secondTile = gameBoard[parseInt(row) - 2][parseInt(col) - 2];
+
+            //  If second tile exists and is an enemy player
+            if (secondTile != undefined && (secondTile != player)) {
+
+                //  Set third thile to check
+                var thirdTile = gameBoard[parseInt(row) - 3][parseInt(col) - 3]
+
+                //  If third tile is owned by player making the move
+                if (thirdTile == player) {
+                    //  Capture pieces, clear table and array
+                    firstTile = null;
+                    secondTile = null;
+                    var targetCellId = "tableCell/" + (parseInt(row) - 1) + "/" + (parseInt(col) - 1)
+                    targetCell = document.getElementById(targetCellId)
+                    gameBoard[(parseInt(row) - 1)][(parseInt(col) - 1)] = undefined;
+                    targetCell.removeChild(targetCell.childNodes[0]);
+                    var targetCellId = "tableCell/" + (parseInt(row) - 2) + "/" + (parseInt(col) - 2)
+                    targetCell = document.getElementById(targetCellId)
+                    gameBoard[(parseInt(row) - 2)][(parseInt(col) - 2)] = undefined;
+                    targetCell.removeChild(targetCell.childNodes[0]);
+                }
+            }
+        }
+    }
+}
+function checkCaptureTopRight(row, col, player) {
+    if ((parseInt(col) + 3 < gameBoard[row].length) && !(parseInt(row) - 3 < 0)) {
+        //  Set the first tile to check
+        var firstTile = gameBoard[parseInt(row) - 1][parseInt(col) + 1];
+        //  If first tile to check exists, and is enemy player
+        if (firstTile != undefined && (firstTile != player)) {
+
+            //  Set the second tile to check
+            var secondTile = gameBoard[parseInt(row) - 2][parseInt(col) + 2];
+
+            //  If second tile exists and is an enemy player
+            if (secondTile != undefined && (secondTile != player)) {
+
+                //  Set third thile to check
+                var thirdTile = gameBoard[parseInt(row) - 3][parseInt(col) + 3]
+
+                //  If third tile is owned by player making the move
+                if (thirdTile == player) {
+                    //  Capture pieces, clear table and array
+                    firstTile = null;
+                    secondTile = null;
+                    var targetCellId = "tableCell/" + (parseInt(row) - 1) + "/" + (parseInt(col) + 1);
+                    targetCell = document.getElementById(targetCellId);
+                    gameBoard[parseInt(row) - 1][parseInt(col) + 1] = undefined;
+                    targetCell.removeChild(targetCell.childNodes[0]);
+                    var targetCellId = "tableCell/" + (parseInt(row) - 2) + "/" + (parseInt(col) + 2)
+                    targetCell = document.getElementById(targetCellId)
+                    gameBoard[parseInt(row) - 2][parseInt(col) + 2] = undefined;
+                    targetCell.removeChild(targetCell.childNodes[0]);
+                }
+            }
+        }
+    }
+}
+function checkCaptureBottomLeft(row, col, player) {
+    if (!(parseInt(col) - 3 < 0) && (parseInt(row) + 3 < gameBoard.length)) {
+        //  Set the first tile to check
+        var firstTile = gameBoard[parseInt(row) + 1][parseInt(col) - 1];
+
+        //  If first tile to check exists, and is enemy player
+        if (firstTile != undefined && (firstTile != player)) {
+
+            //  Set the second tile to check
+            var secondTile = gameBoard[parseInt(row) + 2][parseInt(col) - 2];
+
+            //  If second tile exists and is an enemy player
+            if (secondTile != undefined && (secondTile != player)) {
+
+                //  Set third thile to check
+                var thirdTile = gameBoard[parseInt(row) + 3][parseInt(col) - 3]
+
+                //  If third tile is owned by player making the move
+                if (thirdTile == player) {
+                    //  Capture pieces, clear table and array
+                    firstTile = null;
+                    secondTile = null;
+                    var targetCellId = "tableCell/" + (parseInt(row) + 1) + "/" + (parseInt(col) - 1)
+                    targetCell = document.getElementById(targetCellId)
+                    gameBoard[parseInt(row) + 1][parseInt(col) - 1] = undefined;
+                    targetCell.removeChild(targetCell.childNodes[0]);
+                    var targetCellId = "tableCell/" + (parseInt(row) + 2) + "/" + (parseInt(col) - 2)
+                    targetCell = document.getElementById(targetCellId)
+                    gameBoard[parseInt(row) + 2][parseInt(col) - 2] = undefined;
+                    targetCell.removeChild(targetCell.childNodes[0]);
+                }
+            }
+        }
+    }
+}
+function checkCaptureBottomRight(row, col, player) {
+    if ((parseInt(col) + 3 ) < gameBoard[row].length && !(parseInt(row) + 3) < gameBoard.length) {
+        //  Set the first tile to check
+        var firstTile = gameBoard[(parseInt(row) + 1)][(parseInt(col) + 1)];
+        //  If first tile to check exists, and is enemy player
+        if (firstTile != undefined && (firstTile != player)) {
+
+            //  Set the second tile to check
+            var secondTile = gameBoard[(parseInt(row) + 2)][(parseInt(col) + 2)];
+            //  If second tile exists and is an enemy player
+            if (secondTile != undefined && (secondTile != player)) {
+                //  Set third thile to check
+                var thirdTile = gameBoard[(parseInt(row) + 3)][(parseInt(col) + 3)]
+
+                //  If third tile is owned by player making the move
+                if (thirdTile == player) {
+                    //  Capture pieces, clear table and array
+                    firstTile = null;
+                    secondTile = null;
+                    var targetCellId = "tableCell/" + (parseInt(row) + 1) + "/" + (parseInt(col) + 1)
+                    targetCell = document.getElementById(targetCellId)
+                    gameBoard[(parseInt(row) + 1)][(parseInt(col) + 1)] = undefined;
+                    targetCell.removeChild(targetCell.childNodes[0]);
+                    var targetCellId = "tableCell/" + (parseInt(row) + 2) + "/" + (parseInt(col) + 2)
+                    targetCell = document.getElementById(targetCellId)
+                    gameBoard[(parseInt(row) + 2)][(parseInt(col) + 2)] = undefined;
+                    targetCell.removeChild(targetCell.childNodes[0]);
+                }
+            }
+        }
+    }
+}
+
+
+
+
 //Commity
