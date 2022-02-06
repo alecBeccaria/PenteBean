@@ -92,71 +92,155 @@ function getVal(cell) {
 function placePiece(row, col, player, cell) {
     console.log(gameBoard)
 
-        console.log()
-    
-        if (player == player1local) {
-            var img = document.createElement("IMG")
-            img.src = "./assets/White_sm.png";
-            cell.appendChild(img)
-        } else {
-            var img = document.createElement("IMG")
-            img.src = "./assets/Black_sm.png";
-            cell.appendChild(img)
-        }
-        gameBoard[row][col] = player;
-        checkCaptureRight(row, col, player);
-        checkCaptureDown(row, col, player);
-        checkCaptureUp(row, col, player);
-        checkCaptureLeft(row, col, player);
 
-        checkCaptureTopLeft(row, col, player);
-        checkCaptureTopRight(row, col, player);
-        checkCaptureBottomLeft(row, col, player);
-        checkCaptureBottomRight(row, col, player);
+    if (player == player1local) {
+        var img = document.createElement("IMG")
+        img.src = "./assets/White_sm.png";
+        cell.appendChild(img)
+    } else {
+        var img = document.createElement("IMG")
+        img.src = "./assets/Black_sm.png";
+        cell.appendChild(img)
+    }
+    gameBoard[row][col] = player;
+    checkCaptureRight(row, col, player);
+    checkCaptureDown(row, col, player);
+    checkCaptureUp(row, col, player);
+    checkCaptureLeft(row, col, player);
 
-        checkFiveInRow(row, col, player);
-        checkFiveInColumn(row, col, player);
-        if(playerOneCaptureCount == 5){
-            //redirect in here
-            alert("Game over, player " + player1local + "wins!")
-        }else if(playerTwoCaptureCount == 5){
-            alert("Game over, player " + player2local + "wins!")
-        }
+    checkCaptureTopLeft(row, col, player);
+    checkCaptureTopRight(row, col, player);
+    checkCaptureBottomLeft(row, col, player);
+    checkCaptureBottomRight(row, col, player);
+
+    checkFiveInRow(row, col, player);
+    checkFiveInColumn(row, col, player);
+    checkFiveInBackSlash(row, col, player);
+    checkFiveInForwardSlash(row, col, player);
+    if(playerOneCaptureCount == 5){
+        //redirect in here
+        alert("Game over, player " + player1local + "wins!")
+    }else if(playerTwoCaptureCount == 5){
+        alert("Game over, player " + player2local + "wins!")
+    }
+
+
 }
 
 function checkFiveInRow(row, col, player) {
-        //  Set the first tile to check
-        var count = 1;
+    //  Set the first tile to check
+    var count = 1;
 
-        for (var i = 1; i < 5; i++) {
-            //  Add to count for matching piece in a row
-            if (!((parseInt(col) - i) < 0) && (gameBoard[row][(parseInt(col) - i)] == player)) {
+    for (var i = 1; i < 5; i++) {
+        //  Add to count for matching piece in a row
+        if (!((parseInt(col) - i) < 0) && (gameBoard[row][(parseInt(col) - i)] == player)) {
+            count++;
+        } else {
+            break;
+        }
+    }
+    for (var i = 1; i < 5; i++) {
+        //  Add to count for matching piece in a row
+        if (!((parseInt(col) + i) > (gameBoard[row].length - 1)) && (gameBoard[row][(parseInt(col) + i)] == player)) {
+            count++;
+        } else {
+            break;
+        }
+    }
+
+    switch (count) {
+        case 3:
+            alert("Tessra");
+            break;
+        case 4:
+            alert("Tetra");
+            break;
+        case 5:
+            gameWin(player);
+            break;
+    }
+}
+
+function checkFiveInBackSlash(row, col, player) {
+    //  Set the first tile to check
+    var count = 1;
+
+    for (var i = 1; i < 5; i++) {
+        //  Add to count for matching piece in a row
+        if (!((parseInt(row) - i) < 0) && !((parseInt(col) - i) < 0)) {
+            if ((gameBoard[(parseInt(row) - i)][(parseInt(col) - i)] == player)) {
                 count++;
             } else {
                 break;
             }
         }
+    }
 
-        for (var i = 1; i < 5; i++) {
-            //  Add to count for matching piece in a row
-            if (!((parseInt(col) + i) > (gameBoard[row].length - 1)) && (gameBoard[row][(parseInt(col) + i)] == player)) {
+    for (var i = 1; i < 5; i++) {
+        //  Add to count for matching piece in a row
+        if (!((parseInt(row) + i) > 18) && !((parseInt(col) + i) > 18) ) {
+            if ((gameBoard[(parseInt(row) + i)][(parseInt(col) + i)] == player)) {
                 count++;
             } else {
                 break;
             }
         }
+    }
 
-        switch(count) {
-            case 3:
-                alert("Tessra");
+    switch (count) {
+        case 3:
+            alert("Tessra");
+            break;
+        case 4:
+            alert("Tetra");
+            break;
+        case 5:
+            gameWin(player);
+            break;
+    }
+}
+
+function checkFiveInForwardSlash(row, col, player) {
+    //  Set the first tile to check
+    var count = 1;
+
+    for (var i = 1; i < 5; i++) {
+        //  Add to count for matching piece in a row
+        if (!((parseInt(row) + i) > 18) && !((parseInt(col) - i) < 0)) {
+            if ((gameBoard[(parseInt(row) + i)][(parseInt(col) - i)] == player)) {
+                count++;
+            } else {
                 break;
-            case 4:
-                alert("Tetra");
-                break;
-            case 5:
-                alert(player + "wins!");
-                break;
+            }
         }
+    }
+
+    for (var i = 1; i < 5; i++) {
+        //  Add to count for matching piece in a row
+        if (!((parseInt(row) - i) < 0) && !((parseInt(col) + i) > 18)) {
+            if ((gameBoard[(parseInt(row) - i)][(parseInt(col) + i)] == player)) {
+                count++;
+            } else {
+                break;
+            }
+        }
+    }
+
+    switch (count) {
+        case 3:
+            alert("Tessra");
+            break;
+        case 4:
+            alert("Tetra");
+            break;
+        case 5:
+            gameWin(player);
+            break;
+    }
+}
+
+function gameWin(player) {
+    alert(player + "wins!");
 }
 
 function checkFiveInColumn(row, col, player) {
@@ -170,7 +254,7 @@ function checkFiveInColumn(row, col, player) {
         } else {
             break;
         }
-    }    
+    }
 
     for (var i = 1; i < 5; i++) {
         //  Add to count for matching piece in a row
@@ -181,7 +265,7 @@ function checkFiveInColumn(row, col, player) {
         }
     }
 
-    switch(count) {
+    switch (count) {
         case 3:
             alert("Tessra");
             break;
@@ -484,7 +568,7 @@ function checkCaptureBottomLeft(row, col, player) {
     }
 }
 function checkCaptureBottomRight(row, col, player) {
-    if ((parseInt(col) + 3 ) < gameBoard[row].length && !(parseInt(row) + 3) < gameBoard.length) {
+    if ((parseInt(col) + 3) < gameBoard[row].length && !(parseInt(row) + 3) < gameBoard.length) {
         //  Set the first tile to check
         var firstTile = gameBoard[(parseInt(row) + 1)][(parseInt(col) + 1)];
         //  If first tile to check exists, and is enemy player
