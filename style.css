@@ -32,6 +32,14 @@ table {
     outline: 0;
     box-shadow: 12px 12px 3px 3px rgba(49, 27, 1, 0.39);
 }
+
+.stats {
+    color: white;
+    background-color: var(--cellOutline);
+    width: 20%;
+    text-align: center;
+}
+
 .title{
     text-align: center;
     align-self: auto;
