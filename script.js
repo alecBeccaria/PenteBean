@@ -82,7 +82,7 @@ function getVal(cell) {
         if (isFirstPlayerTurn) {
             console.log(`Row: ${clickedRow} Column: ${clickedColumn}`)
             
-            currentPlayerTag.innerHTML = "Current Player: " + player1local;
+            currentPlayerTag.innerHTML = "Current Player: " + player2local;
 
             placePiece(clickedRow, clickedColumn, player1local, cell);
             isFirstPlayerTurn = !isFirstPlayerTurn;
@@ -90,7 +90,7 @@ function getVal(cell) {
         else {
             console.log(`Row: ${clickedRow} Column: ${clickedColumn}`)
             
-            currentPlayerTag.innerHTML = "Current Player: " + player2local;
+            currentPlayerTag.innerHTML = "Current Player: " + player1local;
             
             placePiece(clickedRow, clickedColumn, player2local, cell);
             isFirstPlayerTurn = !isFirstPlayerTurn;
@@ -106,8 +106,8 @@ function getVal(cell) {
 //  Check if Piece occupies space next to it
 function placePiece(row, col, player, cell) {
     console.log(gameBoard)
-
-
+    
+    
     if (player == player1local) {
         var img = document.createElement("IMG")
         img.src = "./assets/White_sm.png";
@@ -122,20 +122,21 @@ function placePiece(row, col, player, cell) {
     checkCaptureDown(row, col, player);
     checkCaptureUp(row, col, player);
     checkCaptureLeft(row, col, player);
-
+    
     checkCaptureTopLeft(row, col, player);
     checkCaptureTopRight(row, col, player);
     checkCaptureBottomLeft(row, col, player);
     checkCaptureBottomRight(row, col, player);
-
+    
     player1CapturesTag.innerHTML = player1local + " captured: " + playerOneCaptureCount;
     player2CapturesTag.innerHTML = player2local + " captured: " + playerTwoCaptureCount;
-
-
+    
+    
     checkFiveInRow(row, col, player);
     checkFiveInColumn(row, col, player);
     checkFiveInBackSlash(row, col, player);
     checkFiveInForwardSlash(row, col, player);
+
     if(playerOneCaptureCount == 5){
         //redirect in here
         alert("Game over, player " + player1local + "wins!")
