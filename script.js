@@ -4,8 +4,8 @@ var clickedRow;
 var clickedColumn;
 var isFirstPlayerTurn = true;
 
-var playerOneCaptureCount;
-var playerTwoCaptureCount;
+var playerOneCaptureCount = 0;
+var playerTwoCaptureCount = 0;
 
 
 console.log("HI");
@@ -26,6 +26,10 @@ table.border = "1";
 table.appendChild(tableBody);
 table.id = "gameBoard";
 table.class = "gameBoardCss";
+
+player1local = localStorage.getItem("player1");
+player2local = localStorage.getItem("player2");
+
 
 //
 for (let a = 0; a < gameBoard.length; a++) {
@@ -63,21 +67,22 @@ function getVal(cell) {
     let words = cell.id.split("/");
     clickedRow = words[1];
     clickedColumn = words[2];
+    console.log(playerOneCaptureCount)
+    console.log(playerTwoCaptureCount)
     if (gameBoard[clickedRow][clickedColumn] == undefined) {
         if (isFirstPlayerTurn) {
             console.log(`Row: ${clickedRow} Column: ${clickedColumn}`)
-            placePiece(clickedRow, clickedColumn, "player1", cell);
+            placePiece(clickedRow, clickedColumn, player1local, cell);
             isFirstPlayerTurn = !isFirstPlayerTurn;
         }
         else {
             console.log(`Row: ${clickedRow} Column: ${clickedColumn}`)
-            placePiece(clickedRow, clickedColumn, "player2", cell);
+            placePiece(clickedRow, clickedColumn, player2local, cell);
             isFirstPlayerTurn = !isFirstPlayerTurn;
         }
     } else {
         alert("Tile is taken");
     }
-
 }
 
 // Attach event handler to button
@@ -86,8 +91,10 @@ function getVal(cell) {
 //  Check if Piece occupies space next to it
 function placePiece(row, col, player, cell) {
     console.log(gameBoard)
+
+        console.log()
     
-        if (player == "player1") {
+        if (player == player1local) {
             var img = document.createElement("IMG")
             img.src = "./assets/White_sm.png";
             cell.appendChild(img)
@@ -109,6 +116,12 @@ function placePiece(row, col, player, cell) {
 
         checkFiveInRow(row, col, player);
         checkFiveInColumn(row, col, player);
+        if(playerOneCaptureCount == 5){
+            //redirect in here
+            alert("Game over, player " + player1local + "wins!")
+        }else if(playerTwoCaptureCount == 5){
+            alert("Game over, player " + player2local + "wins!")
+        }
 }
 
 function checkFiveInRow(row, col, player) {
@@ -202,6 +215,13 @@ function checkCaptureRight(row, col, player) {
 
                 //  If third tile is owned by player making the move
                 if (thirdTile == player) {
+                    
+                    if(player == player1local){
+                        playerOneCaptureCount++;
+                    }else{
+                        playerTwoCaptureCount++;
+                    }
+
                     console.log("test3")
                     //  Capture pieces, clear table and array
                     firstTile = null;
@@ -239,7 +259,11 @@ function checkCaptureDown(row, col, player) {
 
                 //  If third tile is owned by player making the move
                 if (thirdTile == player) {
-                    
+                    if(player == player1local){
+                        playerOneCaptureCount++;
+                    }else{
+                        playerTwoCaptureCount++;
+                    }
                     //  Capture pieces, clear table and array
                     firstTile = null;
                     secondTile = null;
@@ -277,6 +301,11 @@ function checkCaptureUp(row, col, player) {
                 //  If third tile is owned by player making the move
                 if (thirdTile == player) {
 
+                    if(player == player1local){
+                        playerOneCaptureCount++;
+                    }else{
+                        playerTwoCaptureCount++;
+                    }
                     //  Capture pieces, clear table and array
                     firstTile = null;
                     secondTile = null;
@@ -314,6 +343,11 @@ function checkCaptureLeft(row, col, player) {
                 //  If third tile is owned by player making the move
                 if (thirdTile == player) {
 
+                    if(player == player1local){
+                        playerOneCaptureCount++;
+                    }else{
+                        playerTwoCaptureCount++;
+                    }
                     //  Capture pieces, clear table and array
                     firstTile = null;
                     secondTile = null;
@@ -349,6 +383,11 @@ function checkCaptureTopLeft(row, col, player) {
 
                 //  If third tile is owned by player making the move
                 if (thirdTile == player) {
+                    if(player == player1local){
+                        playerOneCaptureCount++;
+                    }else{
+                        playerTwoCaptureCount++;
+                    }
                     //  Capture pieces, clear table and array
                     firstTile = null;
                     secondTile = null;
@@ -383,6 +422,11 @@ function checkCaptureTopRight(row, col, player) {
 
                 //  If third tile is owned by player making the move
                 if (thirdTile == player) {
+                    if(player == player1local){
+                        playerOneCaptureCount++;
+                    }else{
+                        playerTwoCaptureCount++;
+                    }
                     //  Capture pieces, clear table and array
                     firstTile = null;
                     secondTile = null;
@@ -418,6 +462,11 @@ function checkCaptureBottomLeft(row, col, player) {
 
                 //  If third tile is owned by player making the move
                 if (thirdTile == player) {
+                    if(player == player1local){
+                        playerOneCaptureCount++;
+                    }else{
+                        playerTwoCaptureCount++;
+                    }
                     //  Capture pieces, clear table and array
                     firstTile = null;
                     secondTile = null;
@@ -450,6 +499,11 @@ function checkCaptureBottomRight(row, col, player) {
 
                 //  If third tile is owned by player making the move
                 if (thirdTile == player) {
+                    if(player == player1local){
+                        playerOneCaptureCount++;
+                    }else{
+                        playerTwoCaptureCount++;
+                    }
                     //  Capture pieces, clear table and array
                     firstTile = null;
                     secondTile = null;
