@@ -139,12 +139,16 @@ function placePiece(row, col, player, cell) {
 
     if(playerOneCaptureCount == 5){
         //redirect in here
-        alert("Game over, player " + player1local + "wins!")
+        console.log("1 win");
+        gameWin(player1local);
     }else if(playerTwoCaptureCount == 5){
-        alert("Game over, player " + player2local + "wins!")
+        gameWin(player2local);
     }
+}
 
-
+function gameWin(player) {
+    alert(player + " wins!");
+    window.location.href = "./home.html";
 }
 
 function checkFiveInRow(row, col, player) {
@@ -259,9 +263,7 @@ function checkFiveInForwardSlash(row, col, player) {
     }
 }
 
-function gameWin(player) {
-    alert(player + "wins!");
-}
+
 
 function checkFiveInColumn(row, col, player) {
     //  Set the first tile to check
