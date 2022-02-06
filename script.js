@@ -302,8 +302,8 @@ function checkFiveInColumn(row, col, player) {
 
 
 function checkCaptureRight(row, col, player) {
-    if (!(parseInt(col) - 3 < 0) && (parseInt(col) + 3 < gameBoard[row].length)) {
-        console.log(gameBoard)
+    if ((parseInt(col) + 3 < gameBoard[row].length)) {
+        console.log("captureRight")
         //  Set the first tile to check
         var firstTile = gameBoard[row][parseInt(col) + 1];
 
@@ -314,7 +314,7 @@ function checkCaptureRight(row, col, player) {
             var secondTile = gameBoard[row][parseInt(col) + 2];
             //  If second tile exists and is an enemy player
             if (secondTile != undefined && (secondTile != player)) {
-                console.log(player  )
+                console.log(player)
 
                 //  Set third thile to check
                 var thirdTile = gameBoard[row][parseInt(col) + 3]
