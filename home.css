@@ -6,6 +6,7 @@
 }
 html{
     background-color: var(--backgroundColor);
+    font-family: Arial, Helvetica, sans-serif;
 }
 .title{
     align-self: center;
