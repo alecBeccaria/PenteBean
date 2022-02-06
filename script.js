@@ -4,6 +4,10 @@ var clickedRow;
 var clickedColumn;
 var isFirstPlayerTurn = true;
 
+var currentPlayerTag = document.getElementById("CurrPlayer")
+var player1CapturesTag = document.getElementById("Name1")
+var player2CapturesTag = document.getElementById("Name2")
+
 var playerOneCaptureCount = 0;
 var playerTwoCaptureCount = 0;
 
@@ -29,6 +33,11 @@ table.class = "gameBoardCss";
 
 player1local = localStorage.getItem("player1");
 player2local = localStorage.getItem("player2");
+currentPlayerTag.innerHTML = "Current Player: " + player1local;
+
+
+player1CapturesTag.innerHTML = player1local + " captured: " + playerOneCaptureCount;
+player2CapturesTag.innerHTML = player2local + " captured: " + playerTwoCaptureCount;
 
 
 //
@@ -72,11 +81,17 @@ function getVal(cell) {
     if (gameBoard[clickedRow][clickedColumn] == undefined) {
         if (isFirstPlayerTurn) {
             console.log(`Row: ${clickedRow} Column: ${clickedColumn}`)
+            
+            currentPlayerTag.innerHTML = "Current Player: " + player1local;
+
             placePiece(clickedRow, clickedColumn, player1local, cell);
             isFirstPlayerTurn = !isFirstPlayerTurn;
         }
         else {
             console.log(`Row: ${clickedRow} Column: ${clickedColumn}`)
+            
+            currentPlayerTag.innerHTML = "Current Player: " + player2local;
+            
             placePiece(clickedRow, clickedColumn, player2local, cell);
             isFirstPlayerTurn = !isFirstPlayerTurn;
         }
@@ -112,6 +127,10 @@ function placePiece(row, col, player, cell) {
     checkCaptureTopRight(row, col, player);
     checkCaptureBottomLeft(row, col, player);
     checkCaptureBottomRight(row, col, player);
+
+    player1CapturesTag.innerHTML = player1local + " captured: " + playerOneCaptureCount;
+    player2CapturesTag.innerHTML = player2local + " captured: " + playerTwoCaptureCount;
+
 
     checkFiveInRow(row, col, player);
     checkFiveInColumn(row, col, player);
@@ -287,12 +306,12 @@ function checkCaptureRight(row, col, player) {
 
         //  If first tile to check exists, and is enemy player
         if (firstTile != undefined && (firstTile != player)) {
-            console.log("test1")
+            console.log(player)
             //  Set the second tile to check
             var secondTile = gameBoard[row][parseInt(col) + 2];
             //  If second tile exists and is an enemy player
             if (secondTile != undefined && (secondTile != player)) {
-                console.log("test2")
+                console.log(player  )
 
                 //  Set third thile to check
                 var thirdTile = gameBoard[row][parseInt(col) + 3]
